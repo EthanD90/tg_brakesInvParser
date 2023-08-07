@@ -27,15 +27,6 @@ locs = [{'account_no': {'left': 304, 'top': 341, 'width':75, 'height': 18}},
 
 
 # Function to accept the PDF content and return array of pages
-def create_temp_dir(pdf_bytes):    
-    with tempfile.TemporaryDirectory() as temp_dir:
-        # Save PDF to a temporary file
-        pdf_path = os.path.join(temp_dir, 'input.pdf')
-        with open(pdf_path, 'wb') as f:
-            f.write(pdf_bytes)
-        images = convert_from_path(pdf_path)
-    return images    
-
 def extract_text_from_images(roi_image):
     # Convert the image to grayscale explicitly
     # roi_gray = cv2.cvtColor(roi_image, cv2.COLOR_BGR2GRAY)
