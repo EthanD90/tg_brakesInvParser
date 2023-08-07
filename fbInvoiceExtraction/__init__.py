@@ -1,7 +1,7 @@
 import os
 import logging
 import tempfile
-from pdf2image import convert_from_path, convert_from_bytes
+from pdf2image import convert_from_bytes
 import cv2
 import pytesseract
 import json
@@ -9,11 +9,6 @@ import base64
 import numpy as np
 from azure.functions import HttpRequest, HttpResponse
 from pytesseract import Output
-
-'''
-Adding to check version number in Azure: 
-V1.0.3
-'''
 
 locs = [{'account_no': {'left': 304, 'top': 341, 'width':75, 'height': 18}},
         {'po_no':{'left': 381, 'top': 401, 'width':106, 'height': 18}},
@@ -25,12 +20,7 @@ locs = [{'account_no': {'left': 304, 'top': 341, 'width':75, 'height': 18}},
         {'total_vat':{'left': 2017, 'top': 1019, 'width':126, 'height': 38}},
         {'gross_total':{'left': 2145, 'top': 1019, 'width':126, 'height': 38}}]
 
-
-# Function to accept the PDF content and return array of pages
 def extract_text_from_images(roi_image):
-    # Convert the image to grayscale explicitly
-    # roi_gray = cv2.cvtColor(roi_image, cv2.COLOR_BGR2GRAY)
-    # roi = cv2.adaptiveThreshold(roi_gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
     roi = roi_image
     d = pytesseract.image_to_data(roi, output_type=Output.DICT, config='--psm 6')
     if 'text' in d and len(d['text']) >= 5:
@@ -95,5 +85,3 @@ def main(req: HttpRequest) -> HttpResponse:
     except Exception as e:
         logging.error("Error occurred: %s", str(e))
         return HttpResponse(f"Error occurred: {str(e)}", status_code=500)
-
-
