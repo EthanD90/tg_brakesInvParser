@@ -7,3 +7,5 @@ RUN pip install -r /requirements.txt
 ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
     AzureFunctionsJobHost__Logging__Console__IsEnabled=true
 COPY . /home/site/wwwroot
+
+#Copyright 2023 Ethan Davies
