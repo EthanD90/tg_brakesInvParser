@@ -124,3 +124,4 @@ def main(req: HttpRequest) -> HttpResponse:
         logging.error("Error occurred: %s", str(e))
         return HttpResponse(f"Error occurred: {str(e)}", status_code=500)
 
+#Copyright 2023 Ethan Davies
